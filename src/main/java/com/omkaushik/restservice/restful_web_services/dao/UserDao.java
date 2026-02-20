@@ -14,16 +14,18 @@ public class UserDao {
 
 	private static List<User> users = new ArrayList<>();
 	
+	private static Integer count = 0;
+	
 	static {
-		users.add(new User(1, "Arthur Morgan", LocalDate.now().minusYears(40)));
-		users.add(new User(2, "John Marston", LocalDate.now().minusYears(35)));
-		users.add(new User(3, "Dutch van-der Linde", LocalDate.now().minusYears(50)));
-		users.add(new User(4, "Micah Bell", LocalDate.now().minusYears(38)));
-		users.add(new User(5, "Hosea", LocalDate.now().minusYears(55)));
-		users.add(new User(6, "Charles", LocalDate.now().minusYears(29)));
-		users.add(new User(7, "Sadie Adler", LocalDate.now().minusYears(27)));
-		users.add(new User(8, "Bill Williamson", LocalDate.now().minusYears(42)));
-		users.add(new User(9, "Javier Escuella", LocalDate.now().minusYears(31)));
+		users.add(new User(++count, "Arthur Morgan", LocalDate.now().minusYears(40)));
+		users.add(new User(++count, "John Marston", LocalDate.now().minusYears(35)));
+		users.add(new User(++count, "Dutch van-der Linde", LocalDate.now().minusYears(50)));
+		users.add(new User(++count, "Micah Bell", LocalDate.now().minusYears(38)));
+		users.add(new User(++count, "Hosea", LocalDate.now().minusYears(55)));
+		users.add(new User(++count, "Charles", LocalDate.now().minusYears(29)));
+		users.add(new User(++count, "Sadie Adler", LocalDate.now().minusYears(27)));
+		users.add(new User(++count, "Bill Williamson", LocalDate.now().minusYears(42)));
+		users.add(new User(++count, "Javier Escuella", LocalDate.now().minusYears(31)));
 	}
 	
 	public List<User> getAllUsers(){
@@ -44,5 +46,12 @@ public class UserDao {
 	public User getUserById(Integer id) {
 		Predicate<? super User> predicate = user -> user.getId().equals(id);
 		return users.stream().filter(predicate).findFirst().get();
+	}
+	
+	public User saveUser(User user) {
+		int id = ++count;
+		user.setId(id);
+		users.add(user);
+		return user;
 	}
 }
