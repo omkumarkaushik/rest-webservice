@@ -45,7 +45,7 @@ public class UserDao {
 	//functional Programming approach
 	public User getUserById(Integer id) {
 		Predicate<? super User> predicate = user -> user.getId().equals(id);
-		return users.stream().filter(predicate).findFirst().get();
+		return users.stream().filter(predicate).findFirst().orElse(null);
 	}
 	
 	public User saveUser(User user) {
