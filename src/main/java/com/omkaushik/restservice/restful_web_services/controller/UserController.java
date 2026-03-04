@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -37,6 +38,11 @@ public class UserController {
 			throw new UserNotFindException("id: "+id);
 		}
 		return user;
+	}
+	
+	@DeleteMapping(path = "/users/{id}")
+	public void deleteUser(@PathVariable Integer id) {
+		dao.getDeleteUserById(id);
 	}
 	
 	@PostMapping(path = "/users")

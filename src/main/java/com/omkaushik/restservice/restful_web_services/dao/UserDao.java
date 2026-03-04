@@ -54,4 +54,10 @@ public class UserDao {
 		users.add(user);
 		return user;
 	}
+
+	public void getDeleteUserById(Integer id) {
+		// TODO Auto-generated method stub
+		Predicate<? super User> predicate = user -> user.getId().equals(id);
+		users.remove(predicate);
+	}
 }
