@@ -11,6 +11,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.omkaushik.restservice.restful_web_services.dao.UserDao;
 import com.omkaushik.restservice.restful_web_services.model.User;
+
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,7 +49,7 @@ public class UserController {
 	}
 	
 	@PostMapping(path = "/users")
-	public ResponseEntity<User> addUser(@RequestBody User user) {
+	public ResponseEntity<User> addUser(@Valid @RequestBody User user) {
 		User addedUser = dao.saveUser(user);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}")
