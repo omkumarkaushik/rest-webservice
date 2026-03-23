@@ -1,4 +1,4 @@
-package com.omkaushik.restservice.restful_web_services.repository;
+package com.omkaushik.restservice.restful_web_services.UserRepository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

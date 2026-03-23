@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.omkaushik.restservice.restful_web_services.UserRepository.UserRepository;
 import com.omkaushik.restservice.restful_web_services.dao.UserDao;
+import com.omkaushik.restservice.restful_web_services.model.Post;
 import com.omkaushik.restservice.restful_web_services.model.User;
 
 import jakarta.validation.Valid;
@@ -29,9 +31,9 @@ public class UserJpaController {
 
 	private UserDao dao;
 	
-	private JpaRepository repository;
+	private UserRepository repository;
 
-	public UserJpaController(UserDao dao, JpaRepository repository) {
+	public UserJpaController(UserDao dao, UserRepository repository) {
 		super();
 		this.dao = dao;
 		this.repository = repository;
@@ -66,6 +68,16 @@ public class UserJpaController {
 	public void deleteUser(@PathVariable Integer id) {
 //		dao.getDeleteUserById(id);
 		repository.deleteById(id);
+	}
+	
+	@GetMapping(path = "/jpa/users/{id}/posts")
+	public List<Post> retrievePost(@PathVariable Integer id) {
+		Optional<User> user = repository.findById(id);
+		
+		if(user.isEmpty()) {
+			throw new UserNotFindException("id: "+id);
+		}
+		return user.get().getPosts();
 	}
 	
 	@PostMapping(path = "/jpa/users")
